@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+  <title>Calm Skies Journey Builder</title>
+  <link rel="stylesheet" href="app/app.css">
+</head>
+<body>
+  <header>
+    <h1>Calm Skies Journey Builder</h1>
+    <p class="tagline">Helping families prepare for air travel, one step at a time.</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="form-heading">
+      <h2 id="form-heading">Tell us about your journey</h2>
+      <p class="form-note">All fields are optional except the child's name. Nothing you enter leaves your browser.</p>
+
+      <form id="journey-form" novalidate>
+
+        <div class="field">
+          <label for="child-name">Child's name or nickname <span aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="child-name"
+            name="childName"
+            required
+            autocomplete="off"
+            maxlength="50"
+            aria-required="true"
+          >
+        </div>
+
+        <div class="field">
+          <label for="age-range">Age range</label>
+          <select id="age-range" name="ageRange">
+            <option value="">— select —</option>
+            <option value="under5">Under 5</option>
+            <option value="5-7">5–7</option>
+            <option value="8-10">8–10</option>
+            <option value="11-13">11–13</option>
+            <option value="14plus">14+</option>
+          </select>
+        </div>
+
+        <fieldset>
+          <legend>First flight?</legend>
+          <div class="radio-group">
+            <label><input type="radio" name="firstFlight" value="no" checked> No</label>
+            <label><input type="radio" name="firstFlight" value="yes"> Yes</label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="departure">Departing from</label>
+          <input type="text" id="departure" name="departure" autocomplete="off" maxlength="100" placeholder="e.g. New York JFK">
+        </div>
+
+        <div class="field">
+          <label for="destination">Traveling to</label>
+          <input type="text" id="destination" name="destination" autocomplete="off" maxlength="100" placeholder="e.g. Orlando MCO">
+        </div>
+
+        <fieldset>
+          <legend>Sensitivities <span class="hint">(check all that apply)</span></legend>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="sensitivity" value="noise"> Noise</label>
+            <label><input type="checkbox" name="sensitivity" value="crowds"> Crowds</label>
+            <label><input type="checkbox" name="sensitivity" value="transitions"> Transitions</label>
+            <label><input type="checkbox" name="sensitivity" value="waiting"> Waiting</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Communication preference</legend>
+          <div class="radio-group">
+            <label><input type="radio" name="commPref" value="spoken" checked> Spoken</label>
+            <label><input type="radio" name="commPref" value="pictures"> Pictures</label>
+            <label><input type="radio" name="commPref" value="written"> Written</label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="concern">One thing you are most concerned about <span class="hint">(optional, max 200 chars)</span></label>
+          <textarea id="concern" name="concern" maxlength="200" rows="3"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="comfort-item">Comfort item to bring <span class="hint">(optional, e.g. blue blanket)</span></label>
+          <input type="text" id="comfort-item" name="comfortItem" autocomplete="off" maxlength="60" placeholder="e.g. blue blanket">
+        </div>
+
+        <div class="field">
+          <label for="visiting">Who are you visiting? <span class="hint">(optional, e.g. Grandma)</span></label>
+          <input type="text" id="visiting" name="visiting" autocomplete="off" maxlength="60" placeholder="e.g. Grandma">
+        </div>
+
+        <div class="field">
+          <label for="calm-strategy">What helps when feeling worried? <span class="hint">(optional, e.g. slow breaths and my fidget)</span></label>
+          <input type="text" id="calm-strategy" name="calmStrategy" autocomplete="off" maxlength="80" placeholder="e.g. slow breaths and my fidget">
+        </div>
+
+        <div class="field">
+          <label for="exciting-detail">One exciting thing about the trip <span class="hint">(optional, e.g. swimming in the pool)</span></label>
+          <input type="text" id="exciting-detail" name="excitingDetail" autocomplete="off" maxlength="80" placeholder="e.g. swimming in the pool">
+        </div>
+
+        <button type="submit" class="btn-primary">Build My Journey</button>
+      </form>
+    </section>
+
+    <section id="outputs" aria-live="polite" aria-label="Journey outputs" hidden>
+    </section>
+  </main>
+
+  <footer>
+    <p>Calm Skies Journey Builder is a preparation tool only. It does not provide medical advice or make any guarantees about airline, airport, or security procedures.</p>
+    <p class="credit">Built with IBM Bob · Team Guild</p>
+  </footer>
+
+  <script type="module" src="app/main.js"></script>
+</body>
+</html>
