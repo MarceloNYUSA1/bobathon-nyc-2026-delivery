@@ -277,7 +277,7 @@ test('a11y: comfort-item and visiting fields are present and labelled', () => {
   assert.ok(visitingLabel.textContent.trim().length > 0, 'visiting label must have text');
 });
 
-// R10/R11 — new optional field labels present in index.html (BOB-023, A.J. Aronoff requirement)
+// R14/R15 — new optional field labels present in index.html (BOB-023, A.J. Aronoff requirement)
 
 test('a11y: calm-strategy and exciting-detail fields are present and labelled', () => {
   const html = readFileSync(resolve(ROOT, 'index.html'), 'utf8');

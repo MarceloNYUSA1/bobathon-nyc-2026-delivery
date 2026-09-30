@@ -2,6 +2,46 @@
 
 Built with [IBM Bob](https://www.ibm.com/products/ai-coding-agent) at the IBM Champions Bobathon NYC 2026 · Team Guild
 
+**▶ Live demo:** https://marcelonyusa1.github.io/bobathon-nyc-2026-delivery/ ·
+**🎥 Demo video:** https://github.com/MarceloNYUSA1/bobathon-nyc-2026-delivery/blob/main/deliverables/CalmSkies-TeamGuild-demo.mp4 ·
+**📦 Submission package:** deliverables/Guild.zip ·
+**✅ Tests:** 100/100 passing ·
+**Engineering history:** https://github.com/MarceloNYUSA1/bobathon-nyc-2026
+
+---
+
+## For judges: 3-minute tour
+
+1. Open the **live demo** (link above). Enter the demo scenario values: name = Sam, age = 8–10, first flight = yes, from = New York JFK, to = Orlando MCO, sensitivities = noise + crowds, communication = pictures, comfort item = blue blanket, visiting = Grandma, calm strategy = take slow breaths and squeeze my fidget, exciting detail = swimming in the pool. Click **Build My Journey**.
+2. Watch the **demo video** (2:38) — screen capture of the same app with the same fictional data; narration by AI avatar (HeyGen, disclosed in Tools used).
+3. Read the four evidence chains in the **How IBM Bob was used** section below.
+4. Optional: `npm install && npm test` — 100 tests, 0 failures.
+
+---
+
+## Bobathon submission checklist
+
+| Official requirement | Where to find it | Status |
+|----------------------|------------------|--------|
+| ONE ZIP named exactly as the registered team | `deliverables/Guild.zip` (team name: Guild) | ✅ |
+| `bob_sessions/` — 14 IBM Bob sessions (Marcelo Lorenzetti's Bob tasks during the event), exported verbatim from Bob's local task database | `deliverables/Guild.zip → bob_sessions/` | ✅ |
+| `code_files/` | `deliverables/Guild.zip → code_files/` | ✅ |
+| `README.md` with Problem statement, Detailed solution, Assumptions / approach, How Bob was used | This file | ✅ |
+| Demo video inside the ZIP | `Guild.zip → CalmSkies-TeamGuild-demo.mp4` (top level, 2:38) | ✅ |
+| Feedback form completed by every registered member | Completed on the submission portal by each member | ⏳ pending confirmation |
+| Upload to the Box folder | Upload via submission portal | ⏳ pending |
+| Deadline: Wednesday 30 Sep 2026, 3:00 PM ET | Targeting submission by 12:00 PM ET | ⏳ |
+
+---
+
+## How we address the judging criteria
+
+| Criterion (weight) | Evidence |
+|--------------------|----------|
+| **Innovation & Creativity (35)** | Problem: we did not find a free, privacy-safe, offline-capable preparation tool that adapts a flight narrative to a child's specific sensitivities. Solution: 5 personalized outputs from a single form click — not generic tips but a first-person story the child can read. IBM Bob as SDLC engine (not just autocomplete) across requirements → architecture → tests → accessibility → security → docs — that is the innovation. |
+| **Impact & Practicality (35)** | Runs in any browser, no install, no account. Prints offline; works after page load without a connection. Sensitivities, communication preference, comfort item, calm strategy and exciting detail are directly actionable for caregivers. White-label adoption path documented (`docs/ARCHITECTURE.md`, `DEPLOYMENT.md`). No medical advice, no guarantees, no data stored. |
+| **Technical Implementation (30)** | 100 unit + integration + accessibility + security tests (`npm test`). XSS protection on all user inputs via `escapeHtml()` (NF6). Path traversal decode-then-validate in `scripts/serve.js` (ae070d5). Automated axe-core scan + manual contrast/focus review (`docs/ACCESSIBILITY_REPORT.md`). Pure ES module architecture (no framework, no build step). Every Bob task links to requirement IDs and a passing test run (see How IBM Bob was used). |
+
 ---
 
 ## Problem statement
@@ -16,7 +56,7 @@ Calm Skies Journey Builder is a static web application that helps a caregiver pr
 2. **My Airport Journey** — a 10-step visual sequence, keyboard-navigable
 3. **My Calm Kit** — a packing checklist tailored to the child's needs
 4. **Parent Checklist** — a before-departure and per-stage checklist
-5. **Accessibility Resources** — sourced, labelled links to external organisations
+5. **Accessibility Resources** — sourced, labelled links to external organizations
 
 No data leaves the browser. No account is required. The page prints offline.
 
@@ -28,9 +68,35 @@ The enterprise value is not just the tool — it is the engineering discipline I
 
 ### Human use case
 
-A caregiver (parent, teacher, therapist) visits the app on any device. They fill in up to eleven optional fields: the child's name or nickname, age range, whether it is a first flight, departure and destination, sensitivities (noise, crowds, transitions, waiting), communication preference (spoken, pictures, written), one free-text concern, a comfort item to bring (e.g. "blue blanket"), who the child is visiting (e.g. "Grandma"), a calm strategy for worried moments (e.g. "take slow breaths and squeeze my fidget"), and one exciting thing about the trip (e.g. "swimming in the pool").
+A caregiver (parent, teacher, therapist) visits the app on any device. They fill in up to thirteen optional fields: the child's name or nickname, age range, whether it is a first flight, departure and destination, sensitivities (noise, crowds, transitions, waiting), communication preference (spoken, pictures, written), one free-text concern, a comfort item to bring (e.g. "blue blanket"), who the child is visiting (e.g. "Grandma"), a calm strategy for worried moments (e.g. "take slow breaths and squeeze my fidget"), and one exciting thing about the trip (e.g. "swimming in the pool").
 
 One click produces all five outputs on the same page. The caregiver can print or save as PDF — no internet connection needed after page load. Nothing is stored; closing the tab clears all data.
+
+### Architecture
+
+```mermaid
+graph LR
+    A[index.html form] --> B[app/main.js readForm]
+    B --> C[src/journey/story.js buildStory]
+    B --> D[src/journey/journey.js buildJourney]
+    B --> E[src/journey/calmKit.js buildCalmKit]
+    B --> F[src/journey/parentChecklist.js buildParentChecklist]
+    B --> G[src/journey/resources.js RESOURCES]
+    C --> H[app/render.js escapeHtml + renderAll]
+    D --> H
+    E --> H
+    F --> H
+    G --> H
+    H --> I[#outputs section in DOM]
+    J[tests/*.test.js] -.->|Node.js, no browser| C
+    J -.->|Node.js, no browser| D
+    J -.->|Node.js, no browser| E
+    J -.->|Node.js, no browser| F
+    J -.->|Node.js, no browser| G
+    J -.->|jsdom| H
+```
+
+No network calls. No localStorage. `escapeHtml()` sanitizes every user-supplied value before `innerHTML` insertion.
 
 ### Enterprise story (adoption path — not yet built)
 
@@ -50,21 +116,21 @@ Bob was the primary implementation tool across the full software development lif
 
 | SDLC phase | What Bob did | Evidence |
 |------------|--------------|----------|
-| Requirements | Authored `docs/REQUIREMENTS.md` (37 IDs, testable criteria) | commit c487978 |
-| Architecture | Authored `docs/ARCHITECTURE.md` (file layout, data-flow, alternatives rejected) | commit c487978 |
-| Implementation | Wrote all application code: `index.html`, `app/`, `src/journey/`, `scripts/` | commits f61fd41–b5c0a07 |
-| Testing | Wrote 100 unit, integration, accessibility and security tests | commits b5c0a07–663b689 |
-| Accessibility review | Automated axe-core scan; 2 keyboard focus losses found in real-browser review outside Bob; Bob fixed both (BOB-010) | `tests/a11y.test.js`; commit 1286430 |
-| Security review | XSS vector found in design review outside Bob; Bob fixed it — added `escapeHtml`, NF6 tests (commits f61fd41, ff7b557); dev server network exposure found in code review outside Bob; Bob fixed it — localhost-only, strict public-file allow-list (commit d5367cc); encoded path traversal found by a probe outside Bob; Bob fixed it — decode-then-validate, regression tests (commit ae070d5) | commits f61fd41, ff7b557, d5367cc, ae070d5 |
-| Content review | 8 factual/wording defects found in review outside Bob; Bob fixed copy and added wording tests (commit b6799f2) | commit b6799f2 |
-| Personalization | A.J. Aronoff's requirement (comfort item + visiting fields) implemented by Bob (BOB-019) | commit d567321 |
-| Documentation | Authored architecture, requirements, plan, evidence log, accessibility report, responsible engineering review, deployment guide | commits c487978, d83a6be, 8bfc6a9 |
+| Requirements | Authored `docs/REQUIREMENTS.md` (37 IDs, testable criteria) | c487978 |
+| Architecture | Authored `docs/ARCHITECTURE.md` (file layout, data-flow, alternatives rejected) | c487978 |
+| Implementation | Wrote all application code: `index.html`, `app/`, `src/journey/`, `scripts/` | f61fd41–b5c0a07 |
+| Testing | Wrote 100 unit, integration, accessibility and security tests | b5c0a07–663b689 |
+| Accessibility review | Automated axe-core scan; 2 keyboard focus losses found in real-browser review outside Bob; Bob fixed both (BOB-010) | `tests/a11y.test.js`; 1286430 |
+| Security review | XSS vector found in design review outside Bob; Bob fixed it — added `escapeHtml`, NF6 tests (f61fd41, ff7b557); dev server network exposure found in code review outside Bob; Bob fixed it — localhost-only, strict public-file allow-list (d5367cc); encoded path traversal found by a probe outside Bob; Bob fixed it — decode-then-validate, regression tests (ae070d5) | f61fd41, ff7b557, d5367cc, ae070d5 |
+| Content review | 8 factual/wording defects found in review outside Bob; Bob fixed copy and added wording tests | b6799f2 |
+| Personalization | A.J. Aronoff's requirements (comfort item + visiting + calm strategy + exciting detail) implemented by Bob (BOB-019, BOB-023) | d567321, 663b689 |
+| Documentation | Authored architecture, requirements, plan, evidence log, accessibility report, responsible engineering review, deployment guide | c487978, d83a6be, 8bfc6a9 |
 
 ### Responsible engineering
 
 - No medical advice, diagnosis or treatment recommendations
 - No guarantees about airline, airport or TSA procedures (all wording uses "may" and "can")
-- Only the minimum data needed for generation is collected (11 fields, all optional except name)
+- Only the minimum data needed for generation is collected (13 fields, all optional except name)
 - All data stays in the browser session; no server storage, no accounts, no analytics
 - External resources are labelled with their source and marked as external links
 
@@ -89,9 +155,11 @@ Every task below was implemented by IBM Bob (Agent mode). Commits link to the ev
 |------|-------|--------------|--------|
 | BOB-001 | Requirements + Architecture + Plan | Authored REQUIREMENTS.md (37 req IDs), ARCHITECTURE.md, plan.md | c487978 |
 | BOB-002 | Scaffold | index.html, app/app.css, app/main.js, app/render.js (escapeHtml), scripts/serve.js, package.json, a11y test | f61fd41 |
-| BOB-002a | Security fix — network exposure | serve.js: localhost-only, strict allow-list (commit d5367cc); decode-before-validate path traversal fix, regression tests (commit ae070d5) | d5367cc, ae070d5 |
+| BOB-002b | Security fix — path traversal | serve.js: decode-then-validate, 8 traversal regression tests | ae070d5 |
+| BOB-002a | Security fix — network exposure | serve.js: localhost-only, strict allow-list | d5367cc |
 | BOB-003 | Journey logic | buildStory() — 10 narrative steps, sensitivity-adapted | b5c0a07 |
-| BOB-003a | Content fix | US English, no-guarantee wording, factual accuracy, wording tests (8 content defects found outside Bob) | b6799f2, 2d4365b |
+| BOB-003a | Content fix | US English, no-guarantee wording, factual accuracy, wording tests (8 defects found outside Bob) | b6799f2, 2d4365b |
+| BOB-003b | Wording test coverage | Wording test extended to cover all outputs | 2d4365b |
 | BOB-004 | Journey logic | buildJourney() — 10 steps with label/description/tip/symbol, tests | 234dc60 |
 | BOB-005 | Journey logic | buildCalmKit() — ≥8 items, disclaimer, tests | 73024d6 |
 | BOB-006 | Journey logic | buildParentChecklist() — beforeHome/perStage/notes, tests | 73024d6 |
@@ -105,13 +173,18 @@ Every task below was implemented by IBM Bob (Agent mode). Commits link to the ev
 | BOB-018 | Deployment guide | GitHub Pages steps → DEPLOYMENT.md | 8bfc6a9 |
 | BOB-019 | Personalization (A.J.'s requirement) | Comfort item + visiting fields in form; story personalization; 8 new tests | d567321 |
 | BOB-021 | Wording accuracy | Mislabeled duplicate resource link + US spelling; found outside Bob while rendering demo pages | eef5423 |
-| BOB-023 | Social story elements (A.J.'s requirement) | calmStrategy + excitingDetail fields; 3 Calm Kit items; "If it gets hard" checklist section; 17 new tests (100 total) | 663b689 |
-| BOB-FINAL | Docs sync | Final sync of all docs to HEAD; US English fix; wording test extended to index.html | this commit |
+| BOB-021b | Docs accuracy | Test count and BOB-021 row | 8f396e1 |
+| BOB-022 | Demo video disclosure | Demo video + HeyGen disclosure added to README | 78aff3b |
+| BOB-023 | Social story elements (A.J.'s requirement) | calmStrategy + excitingDetail fields; 3 Calm Kit items (R16); "If it gets hard" checklist section (R17); 17 new tests (100 total) | 663b689 |
+| BOB-023b | Docs accuracy | README count and BOB-023 commit refs | eceff82 |
+| BOB-FINAL | Docs sync | Final sync of all docs to HEAD; US English fix; wording test extended to index.html | 0fe77c7 |
+| BOB-FINAL-b | Docs accuracy | Corrected test counts, US spelling throughout, broken doc paths | 71fb097 |
+| BOB-025 | Final README for judges | Requirement ID fix (R14–R17); README restructured for judges; evidence accuracy fixes | HEAD |
 
 ### Four strongest evidence chains
 
 **1 · Journey Builder P0 build**
-Requirement R10–R13 (story) → Bob task BOB-003 → commit b5c0a07 → `node --test tests/story.test.js` → 8 pass, 0 fail. Full demo path (all 5 outputs) confirmed in BOB-009 → commit ff7b557 → `npm test` → 43 pass at that point.
+Requirements R10–R13 (Flight Story: ≥9 steps, sensitivity adapts, name in first para, first-flight reassurance) → Bob task BOB-003 → commit b5c0a07 → `node --test tests/story.test.js` → 8 pass, 0 fail. Full demo path (all 5 outputs) confirmed in BOB-009 → commit ff7b557 → `npm test` → 43 pass at that point.
 
 **2 · Content accuracy remediation + wording test**
 8 factual/wording defects (shoe-removal instruction, guarantee language, British spellings, inaccurate exit sign claim) found in review outside Bob → Bob task BOB-003a → commit b6799f2 → `npm test` → wording tests green. Regression prevented by 13 wording tests in `tests/wording.test.js`.
@@ -119,25 +192,46 @@ Requirement R10–R13 (story) → Bob task BOB-003 → commit b5c0a07 → `node 
 **3 · Path traversal: found outside Bob → Bob fix → regression tests**
 Encoded path traversal (20 payloads including `%2e%2e%2f`, `%252e%252e%252f`, `%5c`) found by a probe outside Bob → Bob task BOB-002b → commit ae070d5 (`decode-then-validate` in `scripts/serve.js`) → `npm test` → 18 serve tests pass, including 8 traversal regression cases.
 
-**4 · A.J.'s personalization requirement (BOB-019)**
-A.J. Aronoff (team) supplied requirements R8 (comfort item, e.g. "blue blanket") and R9 (visiting, e.g. "Grandma") → Bob task BOB-019 → commit d567321 → `npm test` → 100 pass, 0 fail. Story personalization, kit label personalization, and XSS protection for both fields verified.
+**4 · A.J.'s personalization requirements (BOB-019, BOB-023)**
+A.J. Aronoff (team) supplied R8 (comfort item), R9 (visiting), R14 (calm strategy), R15 (exciting detail), R16 (Calm Kit items), R17 ("If it gets hard") → Bob tasks BOB-019 + BOB-023 → commits d567321, 663b689 → `npm test` → 100 pass, 0 fail at commit 663b689. Story personalization, kit label personalization, and XSS protection for all new fields verified.
+
+---
+
+## What's in this repository
+
+```
+index.html            Static app entry point
+app/                  app.css, main.js, render.js (escapeHtml + renderAll)
+src/journey/          Pure ES module functions: story, journey, calmKit, parentChecklist, resources
+tests/                100 tests: story, journey, calmKit, parentChecklist, resources, integration, a11y, serve, wording
+docs/                 REQUIREMENTS.md, ARCHITECTURE.md, plan.md, ACCESSIBILITY_REPORT.md,
+                      RESPONSIBLE_ENGINEERING.md, DEPLOYMENT.md, demo-script.md
+evidence/             BOBATHON_EVIDENCE.md — requirement → Bob activity → files → test → commit
+deliverables/         Guild.zip (submission package), demo video, bob_sessions/
+```
+
+Instructions to Bob are archived in the engineering repository (https://github.com/MarceloNYUSA1/bobathon-nyc-2026).
+
+---
+
+## Responsible engineering
+
+- No medical advice, diagnosis or treatment recommendations in any generated text
+- No guarantees about airline, airport or TSA procedures
+- Only the minimum data needed for generation is collected; no email, location or biometric data
+- All data stays in the browser session; closing the tab clears everything
+- External resources are clearly labelled with their source organization name and marked as external links
 
 ---
 
 ## Tools used
 
-- **IBM Bob** wrote the application code, tests and the docs it committed
-- **Claude Code (Anthropic)** acted as a planning coach and reviewer; produced `STATUS.html`, `comms/EXECUTIVE-BRIEF.md`, and internal dashboard records (not included); its instructions to Bob are archived in [`comms/`](comms/README.md)
+- **IBM Bob** wrote all application code, tests, and the documentation files it committed
+- **Claude Code (Anthropic)** acted as a planning coach and reviewer; produced `STATUS.html` and internal dashboard records (not included in submission); instructions to Bob are archived in the engineering repository
 - **ChatGPT (OpenAI)** was used pre-event for strategy, option analysis and competition-readiness review
 - **Human contribution:** Marcelo chose the problem and framing and accepted trade-offs; the architecture was proposed by Bob and reviewed outside Bob
 - **Libraries (devDependencies only):** axe-core 4.9, jsdom 24 — used for automated accessibility testing; not in the production bundle
-- **HeyGen** — the demo video's narration uses an AI avatar; all app footage is real screen capture of this repository's application with fictional demo data.
-
----
-
-## Demo video
-
-`CalmSkies-TeamGuild-demo.mp4` (2:38) is included in the submission package. Scenario: a fictional 8-year-old, first flight New York JFK → Orlando MCO.
+- **HeyGen** — the demo video's narration uses an AI avatar; all app footage is real screen capture of this repository's application with fictional demo data
 
 ---
 
@@ -151,9 +245,15 @@ npm test        # node --test tests/*.test.js  →  100 tests, 0 failures
 
 ---
 
+## Demo video
+
+`CalmSkies-TeamGuild-demo.mp4` (2:38) is included in the submission package. Scenario: a fictional 8-year-old "Sam", first flight New York JFK → Orlando MCO.
+
+---
+
 ## Team
 
-Team Guild. Marcelo Lorenzetti: project lead (problem choice, framing, scope and trade-off decisions, acceptance, demo). A.J. Aronoff: Calm Skies concept and product requirements (social stories, two voices — one for the caregiver, one for the child — go-bag and travel-resource research), from which requirements R8/R9 and the content direction came.
+Team Guild. Marcelo Lorenzetti: project lead (problem choice, framing, scope and trade-off decisions, acceptance, demo). A.J. Aronoff: Calm Skies concept and product requirements (social stories, two voices — one for the caregiver, one for the child — go-bag and travel-resource research), from which requirements R8/R9/R14–R17 and the content direction came.
 
 ## License
 

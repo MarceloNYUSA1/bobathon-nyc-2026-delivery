@@ -41,7 +41,7 @@ Version 1.1 · BOB-001 (reviewed)
 **What:** Implement `buildStory(inputs) → string`. Covers 9 narrative steps from home to destination airport exit. Name in first sentence. Sensitivities adapt copy. First-flight flag adds reassurance.  
 **Acceptance criteria:**
 - ≥ 9 steps present in output.
-- All R11, R12, R13 unit assertions pass.  
+- All R11, R12, R13 unit assertions pass (R10–R13 = Flight Story requirements).
 **Tests:** `tests/story.test.js` — name in first paragraph; noise→"headphones"/"quiet"; first-flight→"first time"/"first flight".  
 **Evidence:** `node --test tests/story.test.js` output quoted; commit hash.
 

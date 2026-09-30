@@ -104,33 +104,33 @@ test('R8/R9 XSS: comfort item and visiting are plain text in story output', () =
   assert.ok(!escaped.includes('<img'), 'escaped story must not contain literal <img>');
 });
 
-// R10/R11 — calm strategy + exciting detail (BOB-023, A.J. Aronoff requirement)
+// R14/R15 — calm strategy + exciting detail (BOB-023, A.J. Aronoff requirement)
 
-test('R10: calmStrategy adds "If I feel worried" line near boarding when provided', () => {
+test('R14: calmStrategy adds "If I feel worried" line near boarding when provided', () => {
   const story = buildStory({ ...BASE, calmStrategy: 'take slow breaths' });
   assert.ok(story.includes('If I feel worried, I can take slow breaths.'),
     'Story must include calm strategy sentence when calmStrategy is set');
 });
 
-test('R10: calmStrategy line absent when empty', () => {
+test('R14: calmStrategy line absent when empty', () => {
   const story = buildStory({ ...BASE, calmStrategy: '' });
   assert.ok(!story.includes('If I feel worried'),
     'Story must not contain calm strategy line when field is empty');
 });
 
-test('R11: excitingDetail adds "I am excited about" line before ending when provided', () => {
+test('R15: excitingDetail adds "I am excited about" line before ending when provided', () => {
   const story = buildStory({ ...BASE, excitingDetail: 'swimming in the pool' });
   assert.ok(story.includes('I am excited about swimming in the pool.'),
     'Story must include exciting detail sentence when excitingDetail is set');
 });
 
-test('R11: excitingDetail line absent when empty', () => {
+test('R15: excitingDetail line absent when empty', () => {
   const story = buildStory({ ...BASE, excitingDetail: '' });
   assert.ok(!story.includes('I am excited about'),
     'Story must not contain exciting detail line when field is empty');
 });
 
-test('R10/R11 XSS: calmStrategy and excitingDetail are plain text in story output', () => {
+test('R14/R15 XSS: calmStrategy and excitingDetail are plain text in story output', () => {
   const xssStory = buildStory({
     ...BASE,
     calmStrategy:   '<script>bad()</script>',

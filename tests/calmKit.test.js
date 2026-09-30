@@ -87,23 +87,23 @@ test('R8: default kit label used when comfort item empty', () => {
     `Expected generic label when no comfort item, got: "${item.label}"`);
 });
 
-// R12 — always-present kit items (BOB-023, A.J. Aronoff requirement)
+// R16 — always-present kit items (BOB-023, A.J. Aronoff requirement)
 
-test('R12: chew-toy item always present in kit', () => {
+test('R16: chew-toy item always present in kit', () => {
   const { items } = buildCalmKit(BASE);
   const found = items.find(i => i.id === 'chew-toy');
   assert.ok(found, 'Kit must include chew-toy item regardless of sensitivities');
   assert.ok(found.label.toLowerCase().includes('chew'), `chew-toy label should mention chew: "${found.label}"`);
 });
 
-test('R12: printed flight story item always present in kit', () => {
+test('R16: printed flight story item always present in kit', () => {
   const { items } = buildCalmKit(BASE);
   const found = items.find(i => i.id === 'flight-story');
   assert.ok(found, 'Kit must include printed flight story item');
   assert.ok(found.label.toLowerCase().includes('flight story'), `flight-story label should mention flight story: "${found.label}"`);
 });
 
-test('R12: assistance ID card item always present in kit', () => {
+test('R16: assistance ID card item always present in kit', () => {
   const { items } = buildCalmKit(BASE);
   const found = items.find(i => i.id === 'assist-id');
   assert.ok(found, 'Kit must include assistance ID item');

@@ -63,14 +63,14 @@ test('firstFlight adds a talk item to beforeHome', () => {
   assert.ok(found, 'Expected first-flight prep item in beforeHome');
 });
 
-// R13 — "If it gets hard" section (BOB-023, A.J. Aronoff requirement)
+// R17 — "If it gets hard" section (BOB-023, A.J. Aronoff requirement)
 
-test('R13: ifItGetsHard section is present', () => {
+test('R17: ifItGetsHard section is present', () => {
   const { ifItGetsHard } = buildParentChecklist(BASE);
   assert.ok(ifItGetsHard, '"If it gets hard" section must be present');
 });
 
-test('R13: ifItGetsHard note contains "not medical advice" and "every child is different"', () => {
+test('R17: ifItGetsHard note contains "not medical advice" and "every child is different"', () => {
   const { ifItGetsHard } = buildParentChecklist(BASE);
   assert.ok(ifItGetsHard.note.toLowerCase().includes('not medical advice'),
     'Note must say "not medical advice"');
@@ -78,12 +78,12 @@ test('R13: ifItGetsHard note contains "not medical advice" and "every child is d
     'Note must say "every child is different"');
 });
 
-test('R13: ifItGetsHard has exactly 4 items', () => {
+test('R17: ifItGetsHard has exactly 4 items', () => {
   const { ifItGetsHard } = buildParentChecklist(BASE);
   assert.equal(ifItGetsHard.items.length, 4, '"If it gets hard" must have 4 items');
 });
 
-test('R13: ifItGetsHard items include quieter spot, fewer words, comfort first, and rest/no blame', () => {
+test('R17: ifItGetsHard items include quieter spot, fewer words, comfort first, and rest/no blame', () => {
   const { ifItGetsHard } = buildParentChecklist(BASE);
   const labels = ifItGetsHard.items.map(i => i.label.toLowerCase());
   assert.ok(labels.some(l => l.includes('quiet')),      'Must include quieter spot tip');

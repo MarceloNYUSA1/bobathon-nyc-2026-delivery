@@ -67,18 +67,18 @@ test('integration: all 5 outputs are produced for demo scenario', () => {
   assert.ok(story.includes('I will hold my blue blanket.'), 'Story must include comfort item boarding line');
   assert.ok(story.includes('Then I will see Grandma.'), 'Story must include visiting line at end');
 
-  // R10/R11 — calm strategy and exciting detail (BOB-023, A.J. Aronoff requirement)
+  // R14/R15 — calm strategy and exciting detail (BOB-023, A.J. Aronoff requirement)
   assert.ok(story.includes('If I feel worried, I can take slow breaths and squeeze my fidget.'),
     'Story must include calm strategy line');
   assert.ok(story.includes('I am excited about swimming in the pool.'),
     'Story must include exciting detail line');
 
-  // R12 — three always-present kit items (A.J. Aronoff requirement)
+  // R16 — three always-present kit items (A.J. Aronoff requirement)
   assert.ok(kit.items.find(i => i.id === 'chew-toy'),     'Kit must include chew-toy item');
   assert.ok(kit.items.find(i => i.id === 'flight-story'), 'Kit must include printed flight story item');
   assert.ok(kit.items.find(i => i.id === 'assist-id'),    'Kit must include assistance ID item');
 
-  // R13 — "If it gets hard" section (A.J. Aronoff requirement)
+  // R17 — "If it gets hard" section (A.J. Aronoff requirement)
   assert.ok(checklist.ifItGetsHard, '"If it gets hard" section must be present');
   assert.ok(checklist.ifItGetsHard.note.includes('not medical advice'),
     '"If it gets hard" note must state "not medical advice"');
