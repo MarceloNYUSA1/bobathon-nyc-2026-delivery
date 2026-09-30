@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>The Project — Calm Skies Travel</title>
+  <meta name="description" content="The project — what it is, why it was built, and who it is for."/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .project-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      text-decoration: none;
+      margin-bottom: 32px;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .project-page h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      margin-bottom: 4px;
+    }
+    .project-page .page-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    /* ── Section blocks matching the STATUS.html card style ── */
+    .pblock {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .pblock h2 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .pblock p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .pblock p:last-child { margin-bottom: 0; }
+
+    .pblock.problem    { border-left: 5px solid #e05252; }
+    .pblock.solution   { border-left: 5px solid var(--green-hds); }
+    .pblock.audience   { border-left: 5px solid var(--blue); }
+    .pblock.impact     { border-left: 5px solid var(--yellow-soft); background: var(--surface-warm); }
+    .pblock.howworks   { border-left: 5px solid var(--green); background: var(--surface-sage); }
+    .pblock.enterprise { border-left: 5px solid var(--blue-deep); }
+    .pblock.qr         { border-left: 5px solid #e05252; background: var(--surface-warm); }
+    .pblock.bob        { border-left: 5px solid #7c5cd8; }
+    .pblock.whybob     { border-left: 5px solid var(--green-hds); background: var(--surface-sage); }
+
+    /* Bob contributions table */
+    .contrib-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+    .contrib-list li {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .contrib-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .contrib-list .clabel {
+      font-weight: 700;
+      color: var(--blue-deep);
+      min-width: 170px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 540px) {
+      .pblock { padding: 20px 18px; }
+      .contrib-list li { flex-direction: column; gap: 4px; }
+      .contrib-list .clabel { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     SITE HEADER
+════════════════════════════════════════ -->
+<header class="site-header">
+  <img class="logo-icon" src="icons/journey-airport.png" alt="Calm Skies Travel"/>
+  <div class="site-header-text">
+    <h1>Calm Skies Travel</h1>
+    <p>Safe Travels, Calm Skies — one calm sky at a time.</p>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════
+     PAGE CONTENT
+════════════════════════════════════════ -->
+<main>
+<div class="project-page">
+
+  <a href="index.html" class="back-link">← Back to Calm Skies Travel</a>
+
+  <h1>The Project</h1>
+  <p class="page-subtitle">What it is, why it was built, and who it is for.</p>
+
+  <!-- PROBLEM -->
+  <div class="pblock problem">
+    <h2>Problem</h2>
+    <p>My daughter is autistic. Travel at airports can be a challenge.</p>
+    <p>Information is scattered across the web. Usually you need two different sites for one trip —
+       one focused on the child and a separate one for the parent.</p>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="pblock solution">
+    <h2>Solution</h2>
+    <p>A single website that brings parent information and child information together in one place —
+       customisable for the child, covering the complete trip from before you leave,
+       through the destination, and back home.</p>
+  </div>
+
+  <!-- WHO IT'S FOR -->
+  <div class="pblock audience">
+    <h2>Who it's for</h2>
+    <p>Parents of autistic children — my wife and I, and any parent travelling with their autistic child.</p>
+  </div>
+
+  <!-- IMPACT -->
+  <div class="pblock impact">
+    <h2>Impact</h2>
+    <p>We confirmed many of the suggestions on this website when we went to LaGuardia with my daughter,
+       on a day when LaGuardia was having serious problems. Several of the solutions on this site
+       came directly from that trip. Lived experience. Real impact.</p>
+    <p>My wife proof-read the entire website — giving us a live validator who knows the journey first-hand.</p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="pblock howworks">
+    <h2>How it works</h2>
+    <p>The Research section has a list of helpful sites — useful knowledge for the parent, summarised conveniently in one place.</p>
+    <p>For the child, parent and child can work together on filling in Social Stories. Things go much smoother after we have chatted with our daughter about what to bring and what will help. Communication makes everything better.</p>
+    <p>The <strong>Social Story Builder</strong> is the core component. The prompt history shows how all URLs were validated — and that validation could be run automatically to keep the site up to date.</p>
+  </div>
+
+  <!-- ENTERPRISE INTEGRATION -->
+  <div class="pblock enterprise">
+    <h2>Enterprise Integration — URL Validator</h2>
+    <p>Having run the URL validator once, it could be run periodically. IBM Bob can find when links have moved, been deleted, or have replacements — and update the pages.</p>
+    <p><strong>Component: URL Validator–Updater</strong> &nbsp;·&nbsp; File: <code>index.html</code><br/>
+       Responsibility: find broken and deleted URLs and replace them.</p>
+  </div>
+
+  <!-- RISKY REQUEST: QR CODE -->
+  <div class="pblock qr">
+    <h2>Show the Risky Request — QR Code</h2>
+    <p><strong>Bob attempts the action.</strong> Yes — explicit tests were done. Warnings were added to the screen for edge cases. The button is disabled when it cannot work.</p>
+    <p><strong>The control blocks it.</strong> QR codes have a limited amount of information they can store. Beyond that limit, the QR button is turned off.</p>
+    <p><strong>Ask Bob why this was blocked.</strong> Bob discussed this in the plan — limits to what can safely be put into a QR code. The team then shortened some of the header text and set the limit lower than the absolute maximum.</p>
+    <p><strong>Bob identifies the missing condition.</strong> Extensive tests were done. One test passed using a hidden field, but a human user could not find it. Bob then unhid the field.</p>
+    <p><strong>Bob corrects it.</strong> The test suite was run. The error condition was different from what Bob expected — and Bob fixed the test.</p>
+    <p><strong>Retry succeeds.</strong> Yes — there are multiple test runs in the repo. Initial failures were fixed.</p>
+    <p><strong>Evidence record.</strong> Bob created <code>smoke-test.html</code>, which fetches the URL of the live site, runs tests against it, and produces an HTML report.</p>
+  </div>
+
+  <!-- BOB'S CONTRIBUTION -->
+  <div class="pblock bob">
+    <h2>Core Bob Contributions</h2>
+    <ul class="contrib-list">
+      <li>
+        <span class="clabel">Built the site</span>
+        Bob built the entire website and provided the deployment instructions.
+      </li>
+      <li>
+        <span class="clabel">JavaScript &amp; test suites</span>
+        Bob built all the JavaScript — the Story Builder, the QR code logic, and the full validation test suites.
+      </li>
+      <li>
+        <span class="clabel">Tab symbols</span>
+        Bob created all the SVG icons that illustrate each tab.
+      </li>
+      <li>
+        <span class="clabel">Smoke test report</span>
+        Bob created <code>smoke-test.html</code>, which fetches the live site URL, runs tests against it, and produces a full HTML evidence report.
+      </li>
+    </ul>
+  </div>
+
+  <!-- WHY BOB WAS ESSENTIAL -->
+  <div class="pblock whybob">
+    <h2>Why Bob Was Essential</h2>
+    <p>Bob validated all the URLs. It found alternatives when links were broken. This should be done regularly — let Bob validate URLs and find alternative URLs when they change.</p>
+  </div>
+
+</div>
+</main>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="site-footer">
+  <p>Calm Skies Travel &nbsp;·&nbsp; <a href="index.html">calmskiestravel.com</a> &nbsp;·&nbsp; Safe travels, calm skies.</p>
+</footer>
+
+</body>
+</html>
